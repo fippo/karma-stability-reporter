@@ -35,11 +35,10 @@ function StabilityReporter(baseReporterDecorator, config, logger) {
 
         // When a test fails show the results of the test.
         // TODO: make a nicer diff.
-        if (results.exitCode !== 0) {
-            log.error('Mismatch in expectations.');
-            tests.forEach(function(t) {
-                console.log(t);
-            });
+        if (results.exitCode !== 0 && config.stabilityReporter.update) {
+            log.info('Updating expectations', config.stabilityReporter.path);
+            fs.writeFileSync(config.stabilityReporter.path,
+                tests.join('\n').trim(), {encoding: 'ascii'});
         }
     };
 };
