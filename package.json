@@ -1,0 +1,8 @@
+{
+  "name": "karma-stability-reporter",
+  "version": "1.0.0",
+  "description": "A testsuite stability reporter for karma",
+  "main": "stability.js",
+  "author": "Philipp Hancke <philipp.hancke@googlemail.com>",
+  "license": "MIT"
+}
