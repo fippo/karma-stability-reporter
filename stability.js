@@ -17,7 +17,9 @@ function StabilityReporter(baseReporterDecorator, config, logger) {
     this.specFailure = function(browser, result) {
         tests.push(['ERR', result.suite.join(' '),
             result.description,
-            result.assertionErrors[0].name].join(' '));
+            result.assertionErrors[0] ?
+                result.assertionErrors[0].name : 'timeout'
+        ].join(' '));
     };
     this.onRunComplete = function(browserCollection, results) {
         if (results.error || results.disconnected) {
