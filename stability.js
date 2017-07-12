@@ -40,7 +40,7 @@ function StabilityReporter(baseReporterDecorator, config, logger) {
         if (results.exitCode !== 0 && config.stabilityReporter.update) {
             log.info('Updating expectations', config.stabilityReporter.path);
             fs.writeFileSync(config.stabilityReporter.path,
-                tests.join('\n').trim(), {encoding: 'ascii'});
+                tests.join('\n').trim() + '\n', {encoding: 'ascii'});
         }
     };
 };
