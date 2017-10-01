@@ -2,6 +2,9 @@
  * https://www.ironsrc.com/news/how-to-create-a-custom-karma-reporter-3/
  */
 const fs = require('fs');
+const diff = require('diff');
+const colors = require('colors');
+
 function StabilityReporter(baseReporterDecorator, config, logger) {
     baseReporterDecorator(this);
     let log = logger.create('reporter.stability');
@@ -41,6 +44,15 @@ function StabilityReporter(baseReporterDecorator, config, logger) {
             log.info('Updating expectations', config.stabilityReporter.path);
             fs.writeFileSync(config.stabilityReporter.path,
                 tests.join('\n').trim() + '\n', {encoding: 'ascii'});
+        } else if (results.exitCode !== 0) {
+            console.log('Changes:');
+            diff.diffTrimmedLines(expected, tests.join('\n')).forEach((part) => {
+                if (part.added) {
+                    console.log('\t+' + part.value.trim()['green']);
+                }  else if (part.removed) {
+                    console.log('\t-' + part.value.trim()['red']);
+                }
+            });
         }
     };
 };
