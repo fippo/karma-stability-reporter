@@ -46,7 +46,7 @@ function StabilityReporter(baseReporterDecorator, config, logger) {
                 tests.join('\n').trim() + '\n', {encoding: 'ascii'});
         } else if (results.exitCode !== 0) {
             console.log('Changes:');
-            diff.diffTrimmedLines(expected, tests.join('\n')).forEach((part) => {
+            diff.diffTrimmedLines(expected.trim(), tests.join('\n')).forEach((part) => {
                 if (part.added) {
                     console.log('\t+' + part.value.trim()['green']);
                 }  else if (part.removed) {
