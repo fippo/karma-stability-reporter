@@ -11,7 +11,6 @@ function StabilityReporter(baseReporterDecorator, config, logger) {
     let tests = [];
     /* assume that success is most common so we don't need to add
      * a passing test to all expectation files
-     */
     this.specSuccess = function(browser, result) {
         tests.push(['PASS', result.suite.join(' '),
             result.description].join(' '));
